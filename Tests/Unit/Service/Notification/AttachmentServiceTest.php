@@ -284,7 +284,7 @@ class AttachmentServiceTest extends UnitTestCase
             ->setMethods(['getiCalendarContent'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->inject($this->subject, 'iCalendarService', $mockICalendarService);
+        $this->subject->injectICalService($mockICalendarService);
 
         $attachment = $this->subject->getICalAttachment(
             $settings,

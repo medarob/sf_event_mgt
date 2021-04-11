@@ -103,7 +103,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->getMock();
         $registrationRepository->expects(self::once())->method('findByMainRegistration')->willReturn($registrations);
         $registrationRepository->expects(self::exactly(2))->method('update');
-        $this->inject($this->subject, 'registrationRepository', $registrationRepository);
+        $this->subject->injectRegistrationRepository($registrationRepository);
 
         $this->subject->confirmDependingRegistrations($mockRegistration);
     }
@@ -129,7 +129,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->getMock();
         $registrationRepository->expects(self::once())->method('findByMainRegistration')->willReturn($registrations);
         $registrationRepository->expects(self::exactly(2))->method('remove');
-        $this->inject($this->subject, 'registrationRepository', $registrationRepository);
+        $this->subject->injectRegistrationRepository($registrationRepository);
 
         $this->subject->cancelDependingRegistrations($mockRegistration);
     }
@@ -149,7 +149,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $hashService->expects(self::once())->method('validateHmac')->willReturn(false);
-        $this->inject($this->subject, 'hashService', $hashService);
+        $this->subject->injectHashService($hashService);
 
         $result = $this->subject->checkConfirmRegistration($reguid, $hmac);
         $expected = [
@@ -176,14 +176,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkConfirmRegistration($reguid, $hmac);
         $expected = [
@@ -213,14 +213,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1)->willReturn($mockRegistration);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkConfirmRegistration($reguid, $hmac);
         $expected = [
@@ -251,14 +251,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1)->willReturn($mockRegistration);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkConfirmRegistration($reguid, $hmac);
         $expected = [
@@ -285,7 +285,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $hashService->expects(self::once())->method('validateHmac')->willReturn(false);
-        $this->inject($this->subject, 'hashService', $hashService);
+        $this->subject->injectHashService($hashService);
 
         $result = $this->subject->checkCancelRegistration($reguid, $hmac);
         $expected = [
@@ -312,14 +312,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkCancelRegistration($reguid, $hmac);
         $expected = [
@@ -352,14 +352,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1)->willReturn($mockRegistration);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkCancelRegistration($reguid, $hmac);
         $expected = [
@@ -393,14 +393,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1)->willReturn($mockRegistration);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkCancelRegistration($reguid, $hmac);
         $expected = [
@@ -435,14 +435,14 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::once())->method('findByUid')->with(1)->willReturn($mockRegistration);
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $mockHashService = $this->getMockBuilder(HashService::class)
             ->setMethods(['validateHmac'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockHashService->expects(self::once())->method('validateHmac')->willReturn(true);
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $result = $this->subject->checkCancelRegistration($reguid, $hmac);
         $expected = [
@@ -486,7 +486,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockFeUserRepository->expects(self::once())->method('findByUid')->with(1)->willReturn($feUser);
-        $this->inject($this->subject, 'frontendUserRepository', $mockFeUserRepository);
+        $this->subject->injectFrontendUserRepository($mockFeUserRepository);
 
         self::assertEquals($this->subject->getCurrentFeUserObject(), $feUser);
     }
@@ -732,7 +732,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockPaymentService->expects(self::once())->method('getPaymentInstance')->willReturn($mockInvoice);
-        $this->inject($this->subject, 'paymentService', $mockPaymentService);
+        $this->subject->injectPaymentService($mockPaymentService);
 
         self::assertTrue($this->subject->redirectPaymentEnabled($mockRegistration));
     }
@@ -846,7 +846,7 @@ class RegistrationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mockRegistrationRepository->expects(self::never())->method('findWaitlistMoveUpRegistrations');
-        $this->inject($this->subject, 'registrationRepository', $mockRegistrationRepository);
+        $this->subject->injectRegistrationRepository($mockRegistrationRepository);
 
         $this->subject->moveUpWaitlistRegistrations($mockEvent, []);
     }

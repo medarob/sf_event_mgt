@@ -81,7 +81,7 @@ class UserRegistrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $objectManager->expects(self::any())->method('get')->willReturn($mockDemand);
-        $this->inject($mockController, 'objectManager', $objectManager);
+        $mockController->injectObjectManager($objectManager);
 
         $mockController->createUserRegistrationDemandObjectFromSettings($settings);
     }
@@ -103,7 +103,7 @@ class UserRegistrationControllerTest extends UnitTestCase
             ->getMock();
 
         $settings = ['settings'];
-        $this->inject($this->subject, 'settings', $settings);
+        $this->subject->_set('settings', $settings);
 
         $this->subject->expects(self::once())->method('createUserRegistrationDemandObjectFromSettings')
             ->with($settings)->willReturn($demand);
@@ -113,7 +113,7 @@ class UserRegistrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $registrationServiceMock->expects(self::once())->method('getCurrentFeUserObject');
-        $this->inject($this->subject, 'registrationService', $registrationServiceMock);
+        $this->subject->injectRegistrationService($registrationServiceMock);
 
         $registrationRepository = $this->getMockBuilder(
             RegistrationRepository::class
@@ -122,11 +122,11 @@ class UserRegistrationControllerTest extends UnitTestCase
             ->getMock();
         $registrationRepository->expects(self::once())->method('findRegistrationsByUserRegistrationDemand')
             ->willReturn($registrations);
-        $this->inject($this->subject, 'registrationRepository', $registrationRepository);
+        $this->subject->injectRegistrationRepository($registrationRepository);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $view->expects(self::at(0))->method('assign')->with('registrations', $registrations);
-        $this->inject($this->subject, 'view', $view);
+        $view->expects(self::any())->method('assign')->with('registrations', $registrations);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction();
     }

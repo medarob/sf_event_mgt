@@ -93,11 +93,11 @@ class AdministrationControllerTest extends UnitTestCase
             ->getMock();
 
         $objectManager->expects(self::any())->method('get')->willReturn($demand);
-        $this->inject($this->subject, 'objectManager', $objectManager);
+        $this->subject->injectObjectManager($objectManager);
 
         $beUserSessionService = $this->getMockBuilder(BeUserSessionService::class)->getMock();
         $beUserSessionService->expects(self::any())->method('getSessionDataByKey');
-        $this->inject($this->subject, 'beUserSessionService', $beUserSessionService);
+        $this->subject->injectBeUserSessionService($beUserSessionService);
 
         $mockBackendUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $mockBackendUser->expects(self::once())->method('isInWebMount')->willReturn(1);
@@ -109,7 +109,7 @@ class AdministrationControllerTest extends UnitTestCase
             ->getMock();
 
         $eventRepository->expects(self::once())->method('findDemanded')->willReturn($allEvents);
-        $this->inject($this->subject, 'eventRepository', $eventRepository);
+        $this->subject->injectEventRepository($eventRepository);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assignMultiple')->with([
@@ -120,7 +120,7 @@ class AdministrationControllerTest extends UnitTestCase
             'orderDirections' => $this->subject->getOrderDirections(),
             'overwriteDemand' => null
         ]);
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction();
     }
@@ -145,11 +145,11 @@ class AdministrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $objectManager->expects(self::any())->method('get')->willReturn($demand);
-        $this->inject($this->subject, 'objectManager', $objectManager);
+        $this->subject->injectObjectManager($objectManager);
 
         $beUserSessionService = $this->getMockBuilder(BeUserSessionService::class)->getMock();
         $beUserSessionService->expects(self::once())->method('saveSessionData');
-        $this->inject($this->subject, 'beUserSessionService', $beUserSessionService);
+        $this->subject->injectBeUserSessionService($beUserSessionService);
 
         $mockBackendUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $mockBackendUser->expects(self::once())->method('isInWebMount')->willReturn(1);
@@ -160,7 +160,7 @@ class AdministrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $eventRepository->expects(self::once())->method('findDemanded')->willReturn($allEvents);
-        $this->inject($this->subject, 'eventRepository', $eventRepository);
+        $this->subject->injectEventRepository($eventRepository);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assignMultiple')->with([
@@ -171,7 +171,7 @@ class AdministrationControllerTest extends UnitTestCase
             'orderDirections' => $this->subject->getOrderDirections(),
             'overwriteDemand' => []
         ]);
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction($searchDemand);
     }
@@ -197,11 +197,11 @@ class AdministrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $objectManager->expects(self::any())->method('get')->willReturn($demand);
-        $this->inject($this->subject, 'objectManager', $objectManager);
+        $this->subject->injectObjectManager($objectManager);
 
         $beUserSessionService = $this->getMockBuilder(BeUserSessionService::class)->getMock();
         $beUserSessionService->expects(self::once())->method('saveSessionData');
-        $this->inject($this->subject, 'beUserSessionService', $beUserSessionService);
+        $this->subject->injectBeUserSessionService($beUserSessionService);
 
         $mockBackendUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $mockBackendUser->expects(self::once())->method('isInWebMount')->willReturn(1);
@@ -211,7 +211,7 @@ class AdministrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $eventRepository->expects(self::once())->method('findDemanded')->willReturn($allEvents);
-        $this->inject($this->subject, 'eventRepository', $eventRepository);
+        $this->subject->injectEventRepository($eventRepository);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assignMultiple')->with([
@@ -222,7 +222,7 @@ class AdministrationControllerTest extends UnitTestCase
             'orderDirections' => $this->subject->getOrderDirections(),
             'overwriteDemand' => []
         ]);
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction($searchDemand);
     }
@@ -245,11 +245,11 @@ class AdministrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $objectManager->expects(self::any())->method('get')->willReturn($demand);
-        $this->inject($this->subject, 'objectManager', $objectManager);
+        $this->subject->injectObjectManager($objectManager);
 
         $beUserSessionService = $this->getMockBuilder(BeUserSessionService::class)->getMock();
         $beUserSessionService->expects(self::once())->method('saveSessionData');
-        $this->inject($this->subject, 'beUserSessionService', $beUserSessionService);
+        $this->subject->injectBeUserSessionService($beUserSessionService);
 
         $mockBackendUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $mockBackendUser->expects(self::once())->method('isInWebMount')->willReturn(1);
@@ -259,7 +259,7 @@ class AdministrationControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $eventRepository->expects(self::once())->method('findDemanded')->willReturn($allEvents);
-        $this->inject($this->subject, 'eventRepository', $eventRepository);
+        $this->subject->injectEventRepository($eventRepository);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
 
@@ -271,7 +271,7 @@ class AdministrationControllerTest extends UnitTestCase
             'orderDirections' => $this->subject->getOrderDirections(),
             'overwriteDemand' => ['orderDirection' => 'desc']
         ]);
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction($searchDemand, ['orderDirection' => 'desc']);
     }
@@ -365,7 +365,7 @@ class AdministrationControllerTest extends UnitTestCase
         $mockMaintenanceService = $this->getMockBuilder(MaintenanceService::class)
             ->getMock();
         $mockMaintenanceService->expects(self::once())->method('handleExpiredRegistrations');
-        $this->inject($this->subject, 'maintenanceService', $mockMaintenanceService);
+        $this->subject->injectMaintenanceService($mockMaintenanceService);
 
         $this->subject->expects(self::once())->method('redirect');
         $this->subject->handleExpiredRegistrationsAction();
@@ -387,13 +387,13 @@ class AdministrationControllerTest extends UnitTestCase
         $mockLogRepo->expects(self::once())->method('findByEvent')->willReturn(
             $logEntries
         );
-        $this->inject($this->subject, 'customNotificationLogRepository', $mockLogRepo);
+        $this->subject->injectCustomNotificationLogRepository($mockLogRepo);
 
         $mockSettingsService = $this->getMockBuilder(SettingsService::class)->getMock();
         $mockSettingsService->expects(self::once())->method('getCustomNotifications')->willReturn(
             $customNotifications
         );
-        $this->inject($this->subject, 'settingsService', $mockSettingsService);
+        $this->subject->injectSettingsService($mockSettingsService);
 
         $mockCustomNotification = GeneralUtility::makeInstance(CustomNotification::class);
 
@@ -413,7 +413,7 @@ class AdministrationControllerTest extends UnitTestCase
                 'recipients' => $recipients
             ]
         ));
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->indexNotifyAction($event);
     }
@@ -430,7 +430,7 @@ class AdministrationControllerTest extends UnitTestCase
         $mockSettingsService->expects(self::once())->method('getCustomNotifications')->willReturn(
             $customNotifications
         );
-        $this->inject($this->subject, 'settingsService', $mockSettingsService);
+        $this->subject->injectSettingsService($mockSettingsService);
 
         $mockNotificationService = $this->getMockBuilder(NotificationService::class)
             ->getMock();
@@ -438,7 +438,7 @@ class AdministrationControllerTest extends UnitTestCase
             1
         );
         $mockNotificationService->expects(self::once())->method('createCustomNotificationLogentry');
-        $this->inject($this->subject, 'notificationService', $mockNotificationService);
+        $this->subject->injectNotificationService($mockNotificationService);
 
         $mockBackendUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $mockBackendUser->expects(self::once())->method('isInWebMount')->willReturn(1);

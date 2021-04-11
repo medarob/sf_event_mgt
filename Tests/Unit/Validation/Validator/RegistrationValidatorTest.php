@@ -98,7 +98,7 @@ class RegistrationValidatorTest extends UnitTestCase
         $configurationManager->expects(self::once())->method('getConfiguration')->willReturn(
             $settings
         );
-        $this->inject($this->validator, 'configurationManager', $configurationManager);
+        $this->validator->injectConfigurationManager($configurationManager);
 
         self::assertEquals($expected, $this->validator->validate($registration)->hasErrors());
     }
@@ -186,7 +186,7 @@ class RegistrationValidatorTest extends UnitTestCase
         $configurationManager->expects(self::once())->method('getConfiguration')->willReturn(
             $settings
         );
-        $this->inject($this->validator, 'configurationManager', $configurationManager);
+        $this->validator->injectConfigurationManager($configurationManager);
 
         // Inject the object manager
         $validationError = $this->getMockBuilder(Error::class)
@@ -270,7 +270,7 @@ class RegistrationValidatorTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $objectManager->expects(self::once())->method('get')->willReturn($returnedObject);
-        $this->inject($validator, 'objectManager', $objectManager);
+        $validator->injectObjectManager($objectManager);
 
         $result = $validator->_call('getValidator', $type, '');
         self::assertInstanceOf($expectedClass, $result);

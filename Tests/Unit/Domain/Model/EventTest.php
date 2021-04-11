@@ -267,14 +267,13 @@ class EventTest extends UnitTestCase
     public function addCategoryToObjectStorageHoldingCategory()
     {
         $category = new Category();
-        $categoryObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['attach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $categoryObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($category));
-        $this->inject($this->subject, 'category', $categoryObjectStorageMock);
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($category);
 
+        $this->subject->setCategory(new ObjectStorage());
         $this->subject->addCategory($category);
+
+        $this->assertEquals($objectStorage, $this->subject->getCategory());
     }
 
     /**
@@ -283,13 +282,13 @@ class EventTest extends UnitTestCase
     public function removeCategoryFromObjectStorageHoldingCategory()
     {
         $category = new Category();
-        $categoryObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $categoryObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($category));
-        $this->inject($this->subject, 'category', $categoryObjectStorageMock);
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($category);
 
+        $this->subject->setCategory($objectStorage);
         $this->subject->removeCategory($category);
+
+        $this->assertEmpty($this->subject->getCategory());
     }
 
     /**
@@ -322,14 +321,13 @@ class EventTest extends UnitTestCase
     public function addRegistrationToObjectStorageHoldingRegistration()
     {
         $registration = new Registration();
-        $registrationObjectStorageMock = $this->getMockBuilder(
-            ObjectStorage::class
-        )->disableOriginalConstructor()
-            ->getMock();
-        $registrationObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($registration));
-        $this->inject($this->subject, 'registration', $registrationObjectStorageMock);
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($registration);
 
+        $this->subject->setRegistration(new ObjectStorage());
         $this->subject->addRegistration($registration);
+
+        $this->assertEquals($objectStorage, $this->subject->getRegistration());
     }
 
     /**
@@ -338,13 +336,13 @@ class EventTest extends UnitTestCase
     public function removeRegistrationFromObjectStorageHoldingRegistration()
     {
         $registration = new Registration();
-        $registrationObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $registrationObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($registration));
-        $this->inject($this->subject, 'registration', $registrationObjectStorageMock);
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($registration);
 
+        $this->subject->setRegistration($objectStorage);
         $this->subject->removeRegistration($registration);
+
+        $this->assertEmpty($this->subject->getRegistration());
     }
 
     /**
@@ -377,13 +375,13 @@ class EventTest extends UnitTestCase
     public function addRegistrationWaitlistToObjectStorageHoldingRegistrationWaitlist()
     {
         $registration = new Registration();
-        $registrationObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $registrationObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($registration));
-        $this->inject($this->subject, 'registrationWaitlist', $registrationObjectStorageMock);
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($registration);
 
+        $this->subject->setRegistrationWaitlist(new ObjectStorage());
         $this->subject->addRegistrationWaitlist($registration);
+
+        $this->assertEquals($objectStorage, $this->subject->getRegistrationWaitlist());
     }
 
     /**
@@ -392,13 +390,13 @@ class EventTest extends UnitTestCase
     public function removeRegistrationWaitlistFromObjectStorageHoldingRegistrationWaitlist()
     {
         $registration = new Registration();
-        $registrationObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $registrationObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($registration));
-        $this->inject($this->subject, 'registrationWaitlist', $registrationObjectStorageMock);
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($registration);
 
+        $this->subject->setRegistrationWaitlist($objectStorage);
         $this->subject->removeRegistrationWaitlist($registration);
+
+        $this->assertEmpty($this->subject->getRegistrationWaitlist());
     }
 
     /**
@@ -430,14 +428,14 @@ class EventTest extends UnitTestCase
      */
     public function addImageToObjectStorageHoldingImage()
     {
-        $image = new FileReference();
-        $imageObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $imageObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($image));
-        $this->inject($this->subject, 'image', $imageObjectStorageMock);
+        $fileReference = new FileReference();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($fileReference);
 
-        $this->subject->addImage($image);
+        $this->subject->setImage(new ObjectStorage());
+        $this->subject->addImage($fileReference);
+
+        $this->assertEquals($objectStorage, $this->subject->getImage());
     }
 
     /**
@@ -445,14 +443,14 @@ class EventTest extends UnitTestCase
      */
     public function removeImageFromObjectStorageHoldingImage()
     {
-        $image = new FileReference();
-        $imageObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $imageObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($image));
-        $this->inject($this->subject, 'image', $imageObjectStorageMock);
+        $fileReference = new FileReference();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($fileReference);
 
-        $this->subject->removeImage($image);
+        $this->subject->setImage($objectStorage);
+        $this->subject->removeImage($fileReference);
+
+        $this->assertEmpty($this->subject->getImage());
     }
 
     /**
@@ -484,14 +482,14 @@ class EventTest extends UnitTestCase
      */
     public function addFilesToObjectStorageHoldingFiles()
     {
-        $files = new FileReference();
-        $imageObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $imageObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($files));
-        $this->inject($this->subject, 'files', $imageObjectStorageMock);
+        $fileReference = new FileReference();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($fileReference);
 
-        $this->subject->addFiles($files);
+        $this->subject->setFiles(new ObjectStorage());
+        $this->subject->addFiles($fileReference);
+
+        $this->assertEquals($objectStorage, $this->subject->getFiles());
     }
 
     /**
@@ -499,14 +497,14 @@ class EventTest extends UnitTestCase
      */
     public function removeFilesFromObjectStorageHoldingFiles()
     {
-        $files = new FileReference();
-        $imageObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $imageObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($files));
-        $this->inject($this->subject, 'files', $imageObjectStorageMock);
+        $fileReference = new FileReference();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($fileReference);
 
-        $this->subject->removeFiles($files);
+        $this->subject->setFiles($objectStorage);
+        $this->subject->removeFiles($fileReference);
+
+        $this->assertEmpty($this->subject->getFiles());
     }
 
     /**
@@ -538,14 +536,14 @@ class EventTest extends UnitTestCase
      */
     public function addAdditionalImageToObjectStorageHoldingFiles()
     {
-        $files = new FileReference();
-        $imageObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $imageObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($files));
-        $this->inject($this->subject, 'additionalImage', $imageObjectStorageMock);
+        $fileReference = new FileReference();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($fileReference);
 
-        $this->subject->addAdditionalImage($files);
+        $this->subject->setAdditionalImage(new ObjectStorage());
+        $this->subject->addAdditionalImage($fileReference);
+
+        $this->assertEquals($objectStorage, $this->subject->getAdditionalImage());
     }
 
     /**
@@ -553,14 +551,14 @@ class EventTest extends UnitTestCase
      */
     public function removeAdditionalImageFromObjectStorageHoldingFiles()
     {
-        $files = new FileReference();
-        $imageObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $imageObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($files));
-        $this->inject($this->subject, 'additionalImage', $imageObjectStorageMock);
+        $fileReference = new FileReference();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($fileReference);
 
-        $this->subject->removeAdditionalImage($files);
+        $this->subject->setAdditionalImage($objectStorage);
+        $this->subject->removeAdditionalImage($fileReference);
+
+        $this->assertEmpty($this->subject->getAdditionalImage());
     }
 
     /**
@@ -876,7 +874,7 @@ class EventTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $registrationObjectStorageMock->expects(self::once())->method('count')->willReturn(5);
-        $this->inject($this->subject, 'registration', $registrationObjectStorageMock);
+        $this->subject->setRegistration($registrationObjectStorageMock);
 
         self::assertEquals(
             5,
@@ -1124,14 +1122,14 @@ class EventTest extends UnitTestCase
      */
     public function addPriceOptionAddsPriceOptionForPriceOption()
     {
-        $priceOption = new PriceOption();
-        $priceOptionObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $priceOptionObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($priceOption));
-        $this->inject($this->subject, 'priceOptions', $priceOptionObjectStorageMock);
+        $object = new PriceOption();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->addPriceOptions($priceOption);
+        $this->subject->setPriceOptions(new ObjectStorage());
+        $this->subject->addPriceOptions($object);
+
+        $this->assertEquals($objectStorage, $this->subject->getPriceOptions());
     }
 
     /**
@@ -1139,14 +1137,14 @@ class EventTest extends UnitTestCase
      */
     public function removePriceOptionRemovesPriceOptionForPriceOption()
     {
-        $priceOption = new PriceOption();
-        $priceOptionObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $priceOptionObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($priceOption));
-        $this->inject($this->subject, 'priceOptions', $priceOptionObjectStorageMock);
+        $object = new PriceOption();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->removePriceOptions($priceOption);
+        $this->subject->setPriceOptions($objectStorage);
+        $this->subject->removePriceOptions($object);
+
+        $this->assertEmpty($this->subject->getPriceOptions());
     }
 
     /**
@@ -1238,14 +1236,14 @@ class EventTest extends UnitTestCase
      */
     public function addRelatedAddsRelatedForRelated()
     {
-        $event = new Event();
-        $relatedObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $relatedObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($event));
-        $this->inject($this->subject, 'related', $relatedObjectStorageMock);
+        $object = new Event();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->addRelated($event);
+        $this->subject->setRelated(new ObjectStorage());
+        $this->subject->addRelated($object);
+
+        $this->assertEquals($objectStorage, $this->subject->getRelated());
     }
 
     /**
@@ -1253,14 +1251,14 @@ class EventTest extends UnitTestCase
      */
     public function removeRelatedRemovesRelatedForRelated()
     {
-        $event = new Event();
-        $relatedObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $relatedObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($event));
-        $this->inject($this->subject, 'related', $relatedObjectStorageMock);
+        $object = new Event();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->removeRelated($event);
+        $this->subject->setRelated($objectStorage);
+        $this->subject->removeRelated($object);
+
+        $this->assertEmpty($this->subject->getRelated());
     }
 
     /**
@@ -1380,14 +1378,14 @@ class EventTest extends UnitTestCase
      */
     public function addSpeakerAddsSpeaker()
     {
-        $speaker = new Speaker();
-        $speakerObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $speakerObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($speaker));
-        $this->inject($this->subject, 'speaker', $speakerObjectStorageMock);
+        $object = new Speaker();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->addSpeaker($speaker);
+        $this->subject->setSpeaker(new ObjectStorage());
+        $this->subject->addSpeaker($object);
+
+        $this->assertEquals($objectStorage, $this->subject->getSpeaker());
     }
 
     /**
@@ -1395,14 +1393,14 @@ class EventTest extends UnitTestCase
      */
     public function removeSpeakerRemovesSpeaker()
     {
-        $speaker = new Speaker();
-        $speakerObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $speakerObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($speaker));
-        $this->inject($this->subject, 'speaker', $speakerObjectStorageMock);
+        $object = new Speaker();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->removeSpeaker($speaker);
+        $this->subject->setSpeaker($objectStorage);
+        $this->subject->removeSpeaker($object);
+
+        $this->assertempty($this->subject->getSpeaker());
     }
 
     /**
@@ -1434,14 +1432,14 @@ class EventTest extends UnitTestCase
      */
     public function addRegistrationFieldsAddsRegistrationField()
     {
-        $registrationField = new Field();
-        $registrationFieldStorage = $this->getMockBuilder(ObjectStorage::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $registrationFieldStorage->expects(self::once())->method('attach')->with(self::equalTo($registrationField));
-        $this->inject($this->subject, 'registrationFields', $registrationFieldStorage);
+        $object = new Field();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->addRegistrationFields($registrationField);
+        $this->subject->setRegistrationFields(new ObjectStorage());
+        $this->subject->addRegistrationFields($object);
+
+        $this->assertEquals($objectStorage, $this->subject->getRegistrationFields());
     }
 
     /**
@@ -1449,15 +1447,14 @@ class EventTest extends UnitTestCase
      */
     public function removeRegistrationFieldsRemovesRegistrationField()
     {
-        $registrationField = new Field();
-        $registrationFieldStorage = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['detach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $registrationFieldStorage->expects(self::once())->method('detach')->with(self::equalTo($registrationField));
-        $this->inject($this->subject, 'registrationFields', $registrationFieldStorage);
+        $object = new Field();
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach($object);
 
-        $this->subject->removeRegistrationFields($registrationField);
+        $this->subject->setRegistrationFields($objectStorage);
+        $this->subject->removeRegistrationFields($object);
+
+        $this->assertEmpty($this->subject->getRegistrationFields());
     }
 
     /**

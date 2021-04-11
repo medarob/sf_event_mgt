@@ -72,10 +72,10 @@ class PaymentControllerTest extends UnitTestCase
             ->setMethods(['setUseCacheHash', 'uriFor'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->inject($this->subject, 'uriBuilder', $mockUriBuilder);
+        $this->subject->_set('uriBuilder', $mockUriBuilder);
 
         $mockHashService = $this->getMockBuilder(HashService::class)->getMock();
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $values = [
             'sfEventMgtSettings' => null,
@@ -92,10 +92,10 @@ class PaymentControllerTest extends UnitTestCase
         $eventDispatcher->expects(self::once())->method('dispatch')->with(
             new ProcessPaymentInitializeEvent($values, 'paypal', false, $mockRegistration, $this->subject)
         );
-        $this->inject($this->subject, 'eventDispatcher', $eventDispatcher);
+        $this->subject->injectEventDispatcher($eventDispatcher);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->redirectAction($mockRegistration, 'a-hmac');
     }
@@ -114,10 +114,10 @@ class PaymentControllerTest extends UnitTestCase
             ->setMethods(['setUseCacheHash', 'uriFor'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->inject($this->subject, 'uriBuilder', $mockUriBuilder);
+        $this->subject->_set('uriBuilder', $mockUriBuilder);
 
         $mockHashService = $this->getMockBuilder(HashService::class)->getMock();
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $values = [
             'html' => ''
@@ -128,10 +128,10 @@ class PaymentControllerTest extends UnitTestCase
         $eventDispatcher->expects(self::once())->method('dispatch')->with(
             new ProcessPaymentSuccessEvent($values, 'paypal', false, $mockRegistration, [], $this->subject)
         );
-        $this->inject($this->subject, 'eventDispatcher', $eventDispatcher);
+        $this->subject->injectEventDispatcher($eventDispatcher);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->successAction($mockRegistration, 'a-hmac');
     }
@@ -150,10 +150,10 @@ class PaymentControllerTest extends UnitTestCase
             ->setMethods(['setUseCacheHash', 'uriFor'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->inject($this->subject, 'uriBuilder', $mockUriBuilder);
+        $this->subject->_set('uriBuilder', $mockUriBuilder);
 
         $mockHashService = $this->getMockBuilder(HashService::class)->getMock();
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $values = [
             'html' => ''
@@ -164,10 +164,10 @@ class PaymentControllerTest extends UnitTestCase
         $eventDispatcher->expects(self::once())->method('dispatch')->with(
             new ProcessPaymentFailureEvent($values, 'paypal', false, false, $mockRegistration, [], $this->subject)
         );
-        $this->inject($this->subject, 'eventDispatcher', $eventDispatcher);
+        $this->subject->injectEventDispatcher($eventDispatcher);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->failureAction($mockRegistration, 'a-hmac');
     }
@@ -186,10 +186,10 @@ class PaymentControllerTest extends UnitTestCase
             ->setMethods(['setUseCacheHash', 'uriFor'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->inject($this->subject, 'uriBuilder', $mockUriBuilder);
+        $this->subject->_set('uriBuilder', $mockUriBuilder);
 
         $mockHashService = $this->getMockBuilder(HashService::class)->getMock();
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $values = [
             'html' => ''
@@ -200,10 +200,10 @@ class PaymentControllerTest extends UnitTestCase
         $eventDispatcher->expects(self::once())->method('dispatch')->with(
             new ProcessPaymentCancelEvent($values, 'paypal', false, false, $mockRegistration, [], $this->subject)
         );
-        $this->inject($this->subject, 'eventDispatcher', $eventDispatcher);
+        $this->subject->injectEventDispatcher($eventDispatcher);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->cancelAction($mockRegistration, 'a-hmac');
     }
@@ -222,10 +222,10 @@ class PaymentControllerTest extends UnitTestCase
             ->setMethods(['setUseCacheHash', 'uriFor'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->inject($this->subject, 'uriBuilder', $mockUriBuilder);
+        $this->subject->_set('uriBuilder', $mockUriBuilder);
 
         $mockHashService = $this->getMockBuilder(HashService::class)->getMock();
-        $this->inject($this->subject, 'hashService', $mockHashService);
+        $this->subject->injectHashService($mockHashService);
 
         $values = [
             'html' => ''
@@ -236,10 +236,10 @@ class PaymentControllerTest extends UnitTestCase
         $eventDispatcher->expects(self::once())->method('dispatch')->with(
             new ProcessPaymentNotifyEvent($values, 'paypal', false, $mockRegistration, [], $this->subject)
         );
-        $this->inject($this->subject, 'eventDispatcher', $eventDispatcher);
+        $this->subject->injectEventDispatcher($eventDispatcher);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->notifyAction($mockRegistration, 'a-hmac');
     }

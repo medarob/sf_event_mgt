@@ -22,7 +22,7 @@
     "typo3/cms-core": "^10.4.2"
   },
   "require-dev": {
-    "typo3/testing-framework": "^5",
+    "typo3/testing-framework": "^6",
     "codeception/codeception": "^4.1",
     "ericmartel/codeception-email-mailhog": "^1.0",
     "codeception/module-webdriver": "^1.0",

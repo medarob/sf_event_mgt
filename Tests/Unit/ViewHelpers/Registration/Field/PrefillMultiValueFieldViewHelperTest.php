@@ -40,7 +40,7 @@ class PrefillMultiValueFieldViewHelperTest extends UnitTestCase
         $currentValue = 'Default';
 
         $viewHelper->_set('arguments', ['registrationField' => $field, 'currentValue' => $currentValue]);
-        $actual = $viewHelper->_callRef('render');
+        $actual = $viewHelper->_call('render');
         self::assertTrue($actual);
     }
 
@@ -145,7 +145,7 @@ class PrefillMultiValueFieldViewHelperTest extends UnitTestCase
         $mockSubmittedField->expects(self::once())->method('getUid')->willReturn($registrationFieldUid);
 
         $viewHelper->_set('arguments', ['registrationField' => $mockSubmittedField, 'currentValue' => $currentValue]);
-        $actual = $viewHelper->_callRef('render');
+        $actual = $viewHelper->_call('render');
         self::assertSame($expected, $actual);
     }
 
@@ -173,7 +173,7 @@ class PrefillMultiValueFieldViewHelperTest extends UnitTestCase
         $mockSubmittedField = $this->getMockBuilder(Field::class)->getMock();
 
         $viewHelper->_set('arguments', ['registrationField' => $mockSubmittedField, 'currentValue' => null]);
-        $actual = $viewHelper->_callRef('render');
+        $actual = $viewHelper->_call('render');
         self::assertFalse($actual);
     }
 }
